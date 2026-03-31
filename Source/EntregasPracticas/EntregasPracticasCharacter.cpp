@@ -60,6 +60,16 @@ void AEntregasPracticasCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+void AEntregasPracticasCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+	OverlapActor = OtherActor;
+}
+
+void AEntregasPracticasCharacter::NotifyActorEndOverlap(AActor* OtherActor)
+{
+	OverlapActor = nullptr;
+}
+
 void AEntregasPracticasCharacter::MostrarMensaje()
 {
 	

@@ -50,8 +50,11 @@ class AEntregasPracticasCharacter : public ACharacter
 public:
 	AEntregasPracticasCharacter();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION()
 	void MostrarMensaje();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<AActor> OverlapActor;
 	
 
 protected:
@@ -62,8 +65,7 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-	//void Interact(const FInputActionValue& Value);
-			
+	//void Interact(const FInputActionValue& Value);		
 
 protected:
 	// APawn interface
@@ -72,10 +74,16 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
+	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	
 };
 

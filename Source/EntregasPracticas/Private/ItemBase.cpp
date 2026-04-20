@@ -11,13 +11,6 @@ AItemBase::AItemBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
-	RootComponent = SphereCollision;
-
-	SphereMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SphereMesh"));
-	SphereMesh->SetupAttachment(RootComponent);
-
 }
 
 // Called when the game starts or when spawned
@@ -34,25 +27,5 @@ void AItemBase::Tick(float DeltaTime)
 
 }
 
-void AItemBase::NotifyActorBeginOverlap(AActor* OtherActor)
-{
-	Super::NotifyActorBeginOverlap(OtherActor);
-	
-	AEntregasPracticasCharacter* MyCharacter = Cast<AEntregasPracticasCharacter>(OtherActor);
-
-	if (MyCharacter) 
-	{
-		MyCharacter->MostrarMensaje();
-	}
-}
-
-void AItemBase::AgregarFragmentos(AActor* OtherActor)
-{
-	auto Comp = OtherActor->FindComponentByClass<UComponenteDeFragmentos>();
-	if (Comp) {
-		Comp->AgregarFragmentos();
-		Destroy();
-	}
-}
 
 

@@ -44,18 +44,18 @@ class AEntregasPracticasCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Interact Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
 
 public:
 	AEntregasPracticasCharacter();
 
-	UFUNCTION()
-	void MostrarMensaje();
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<AActor> OverlapActor;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasKey = false;
 
 protected:
 
@@ -65,9 +65,8 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-	//void Interact(const FInputActionValue& Value);		
-
-protected:
+	void Interact(const FInputActionValue& Value);		
+	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	

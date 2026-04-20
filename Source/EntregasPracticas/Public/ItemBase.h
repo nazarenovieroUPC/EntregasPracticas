@@ -19,17 +19,7 @@ public:
 	AItemBase();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
-
-	UFUNCTION(BlueprintCallable)
-	void AgregarFragmentos(AActor* OtherActor);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	TObjectPtr<USphereComponent> SphereCollision;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	TObjectPtr<UStaticMeshComponent> SphereMesh;
-
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

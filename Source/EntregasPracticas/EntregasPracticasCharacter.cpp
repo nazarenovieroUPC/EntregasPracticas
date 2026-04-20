@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Interfaces/InteractInterface.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -70,11 +71,6 @@ void AEntregasPracticasCharacter::NotifyActorEndOverlap(AActor* OtherActor)
 	OverlapActor = nullptr;
 }
 
-void AEntregasPracticasCharacter::MostrarMensaje()
-{
-	
-}
-
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -103,7 +99,7 @@ void AEntregasPracticasCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AEntregasPracticasCharacter::Look);
 
 		//Interact
-		//EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AEntregasPracticasCharacter::Interact);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AEntregasPracticasCharacter::Interact);
 	}
 	else
 	{
@@ -147,9 +143,11 @@ void AEntregasPracticasCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-//void AEntregasPracticasCharacter::Interact(const FInputActionValue& Value)
-//{
-//	if (GEngine) {
-//		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Interactuando"));
-//	}
-//}
+void AEntregasPracticasCharacter::Interact(const FInputActionValue& Value)
+{
+	if (OverlapActor && OverlapActor->Implements<UInteractInterface>())
+	{
+		IInteractInterface::Execute_OnInteract(OverlapActor, this);
+	}
+}
+
